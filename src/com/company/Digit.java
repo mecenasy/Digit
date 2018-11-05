@@ -1,86 +1,51 @@
 package com.company;
-public class Digit {
 
-    private String pion = "|";
-    private String poziom = "_";
-    private String spacja = " ";
+class Digit {
 
-    private String[][] v0 = {
-            {spacja, poziom, spacja},
-            {pion, spacja, pion},
-            {pion, poziom, pion}
-    };
-    private String[][] v1 = {
-            {spacja, spacja, spacja},
-            {spacja, spacja, pion},
-            {spacja, spacja, pion}
-    };
-    private String[][] v2 = {
-            {spacja, poziom, spacja},
-            {spacja, poziom, pion},
-            {pion, poziom, pion}
-    };
-    private String[][] v3 = {
-            {spacja, poziom, pion},
-            {spacja, poziom, pion},
-            {spacja, poziom, pion}
-    };
-    private String[][] v4 = {
-            {spacja, spacja, spacja},
-            {pion, poziom, pion},
-            {spacja, spacja, pion}
-    };
-    private String[][] v5 = {
-            {spacja, poziom, spacja},
-            {pion, poziom, spacja},
-            {spacja, poziom, pion}
-    };
-    private String[][] v6 = {
-            {spacja, poziom, spacja},
-            {pion, poziom, spacja},
-            {pion, poziom, pion}
-    };
-    private String[][] v7 = {
-            {spacja, poziom, spacja},
-            {spacja, spacja, pion},
-            {spacja, spacja, pion}
-    };
-    private String[][] v9 = {
-            {spacja, poziom, spacja},
-            {pion, poziom, pion},
-            {spacja, poziom, pion}
-    };
-    private String[][] v8 = {
-            {spacja, poziom, spacja},
-            {pion, poziom, pion},
-            {pion, poziom, pion}
-    };
-    private String[][][] digits = {v0, v1, v2, v3, v4, v5, v6, v7, v8, v9};
+    private String w0 = " _ ";
+    private String w1 = "   ";
+    private String w2 = "  |";
+    private String w3 = "| |";
+    private String w4 = "|_|";
+    private String w5 = " _|";
+    private String w6 = "|_ ";
 
-    public int convert(String[][] digit) {
-        if (digit.length != 3 && digit[0].length != 3) {
-            return -1;
+
+
+    String convert(String[] digit) {
+        if (digit.length != 3) {
+            return "?";
         }
-        for (int v = 0; v < digits.length; v++) {
-            boolean tonietacyfra = false;
-            for (int i = 0; i < 3; i++) {
-                if (tonietacyfra) {
-                    break;
-                }
-                for (int j = 0; j < 3; j++) {
-                    if (digit[i][j].equals(digits[v][i][j])) {
-                    } else {
-                        tonietacyfra = true;
-                        break;
-                    }
-                }
+        if (digit[0].equals(w1)) {
+            if (digit[1].equals(w2)){
+                if (digit[2].equals(w2))return "1";
+                else return "?";
+            } else if (digit[1].equals(w4)){
+                if (digit[2].equals(w2))return "4";
+                else return "?";
             }
-            if (tonietacyfra) {
-                continue;
+        } else {
+            if (digit[1].equals(w2)) {
+                if (digit[2].equals(w2)) return "7";
+                else return "?";
+            } else if (digit[1].equals(w3)) {
+                if (digit[2].equals(w4)) return "0";
+                else return "?";
+            } else if (digit[1].equals(w4)) {
+                if (digit[2].equals(w4)) return "8";
+                else if (digit[2].equals(w5)) return "9";
+                else return "?";
+            } else if (digit[1].equals(w5)) {
+                if (digit[2].equals(w5)) return "3";
+                else if (digit[2].equals(w6)) return "2";
+                else return "?";
+            } else if (digit[1].equals(w6)) {
+                if (digit[2].equals(w5)) return "5";
+                else if (digit[2].equals(w4)) return "6";
+                else return "?";
             }
-            return v;
         }
-        return 1;
+        return "?";
     }
 }
 
