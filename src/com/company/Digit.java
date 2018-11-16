@@ -1,5 +1,14 @@
 package com.company;
 
+
+/*
+ *
+ *  First user story to be solved
+ *  User Story 1 - Solved :)
+ *
+ *
+ */
+
 class Digit {
 
     private String w0 = " _ ";
@@ -11,8 +20,42 @@ class Digit {
     private String w6 = "|_ ";
 
 
+    //Convert input to account number as char array
+    public char[] convertStringToAccountNumberCharArray(String[] Input){
+        char[] Result = this.convertStringToAccountNumber(Input).toCharArray();
+        return Result;
+    }
 
-    String convert(String[] digit) {
+    //Convert input to account number as int array
+    public int convertStringToAccountNumberInt(String[] Input){
+        int Result;
+        String AccountNumber= this.convertStringToAccountNumber(Input);
+        Result = Integer.parseInt(AccountNumber);
+        return Result;
+    }
+
+    //Convert input to account Number as String
+    public String convertStringToAccountNumber(String[] Input){
+        String Result = "";
+        for(int i = 0; i < 9;i++){
+            Result += this.convertStringToNumber(Input,i);
+        }
+        return Result;
+    }
+
+    //Convert input to number by id. ID range 0-8
+    public String convertStringToNumber(String[] Input, int Digit_Place){
+        String Result;
+
+        String[] Output = {Input[0].substring(Digit_Place*3,(Digit_Place*3)+3),
+                Input[1].substring(Digit_Place*3,(Digit_Place*3)+3),
+                Input[2].substring(Digit_Place*3,(Digit_Place*3)+3)};
+
+        Result = this.convert(Output);
+        return Result;
+    }
+
+    public String convert(String[] digit) {
         if (digit.length != 3) {
             return "?";
         }
@@ -47,7 +90,5 @@ class Digit {
         }
         return "?";
     }
+
 }
-
-
-
