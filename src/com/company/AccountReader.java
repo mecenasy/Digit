@@ -35,7 +35,17 @@ public class AccountReader {
         }
         return this;
     }
+
     public  List<String[]> GetAllAcounts(){
         return  this.listAccounts;
+    }
+
+    public boolean CheckAccountSumControl (int indexAccount){
+        int sum = 0;
+        String acount = new Digit().convertStringToAccountNumber(this.listAccounts.get(indexAccount));
+        for (int i = 1; i <= acount.length(); i++){
+            sum += i * Integer.parseInt(acount.substring(i-1, i));
+        }
+        return sum /11 == 0;
     }
 }

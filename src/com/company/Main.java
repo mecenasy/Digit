@@ -17,5 +17,6 @@ public class Main {
         String [] d = reader.ReadFile().IsolateAccounts().GetAllAcounts().get(0);
 
         System.out.println(digit.convertStringToAccountNumber(d));
+        System.out.println(reader.CheckAccountSumControl(2));
     }
 }
