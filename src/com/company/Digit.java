@@ -118,13 +118,13 @@ class Digit {
         testingStrokesVertical(SetOfgetPossibleAmbiguousSolutions, Output);
 
         //combined solution to be developed / reset after each try!
-        cos2( SetOfgetPossibleAmbiguousSolutions, Output);
+        testingCombineStrokes( SetOfgetPossibleAmbiguousSolutions, Output);
 
         this.PossibleAmbiguousSolutions.addAll(SetOfgetPossibleAmbiguousSolutions);
 
     }
 
-    private void cos2( Set<String> setOfgetPossibleAmbiguousSolutions, String[] imput) {
+    private void testingCombineStrokes(Set<String> setOfgetPossibleAmbiguousSolutions, String[] imput) {
         String[] tempNumber = new String[]{imput[0], imput[1], imput[2]};
 
         char[] temp;
