@@ -107,77 +107,82 @@ class Digit {
 
     //Convert input to number by id. ID range 0-8
     public void solveAmbiguous(String[] Input, int Digit_Place) {
-        //version 0.0.1 beta :)
-        //REVIEW!
-        String Result;
-        String tempString;
-        String ResetLine0 = Input[0].substring(Digit_Place * 3, (Digit_Place * 3) + 3);
-        String ResetLine1 = Input[1].substring(Digit_Place * 3, (Digit_Place * 3) + 3);
-        String ResetLine2 = Input[2].substring(Digit_Place * 3, (Digit_Place * 3) + 3);
+        Set<String> SetOfgetPossibleAmbiguousSolutions = new HashSet<String>();
 
         String[] Output = {Input[0].substring(Digit_Place * 3, (Digit_Place * 3) + 3),
                 Input[1].substring(Digit_Place * 3, (Digit_Place * 3) + 3),
                 Input[2].substring(Digit_Place * 3, (Digit_Place * 3) + 3)};
-        char[] temp;
 
-        //testing strokes _
-        for (int i = 0; i < Output.length; i++) {
-            Output[i] = Output[i].replace(' ','_');
-            Result = this.convert(Output);
-            if (!Result.contains("?")) {
-                this.PossibleAmbiguousSolutions.add(this.convert(Output));
-            }
-            Output[i] = Input[0].substring(Digit_Place * 3, (Digit_Place * 3) + 3);
-        }
+        testingStrokesHorisontal(SetOfgetPossibleAmbiguousSolutions, Output);
 
-        //testing strokes |
-        String[] SecondOutput = {ResetLine0,
-                ResetLine1,
-                ResetLine2};
-
-        for (int i = 1; i < SecondOutput.length; i++) {
-            temp = SecondOutput[i].toCharArray();
-            for (int j = 0; j < 2; j += 2) {
-                if(temp[j] == ' '){
-                    temp[j] = '|';
-                }
-                SecondOutput[i] = String.valueOf(temp);
-                Result = this.convert(SecondOutput);
-                if (!Result.contains("?")) {
-                    this.PossibleAmbiguousSolutions.add(this.convert(SecondOutput));
-                }
-                SecondOutput[i] = Input[i].substring(Digit_Place * 3, (Digit_Place * 3) + 3);
-            }
-        }
+        testingStrokesVertical(SetOfgetPossibleAmbiguousSolutions, Output);
 
         //combined solution to be developed / reset after each try!
-        String[] ThirdOutput = {ResetLine0,
-                ResetLine1,
-                ResetLine2};
+        cos2( SetOfgetPossibleAmbiguousSolutions, Output);
 
-        for (int i = 0; i < ThirdOutput.length; i++) {
-            temp = ThirdOutput[i].toCharArray();
+        this.PossibleAmbiguousSolutions.addAll(SetOfgetPossibleAmbiguousSolutions);
+
+    }
+
+    private void cos2( Set<String> setOfgetPossibleAmbiguousSolutions, String[] imput) {
+        String[] tempNumber = new String[]{imput[0], imput[1], imput[2]};
+
+        char[] temp;
+        String Result;
+
+        for (int i = 0; i < imput.length; i++) {
+            temp = imput[i].toCharArray();
             if(temp[1] == ' '){
-                ThirdOutput[i] = ThirdOutput[i].replace(' ','_');
+                imput[i] = imput[i].replace(' ','_');
                 for (int j = 0; j < 2; j += 2) {
                     if(temp[j] == ' '){
                         temp[j] = '|';
                     }
-                    ThirdOutput[i] = String.valueOf(temp);
-                    Result = this.convert(ThirdOutput);
+                    imput[i] = String.valueOf(temp);
+                    Result = this.convert(imput);
                     if (!Result.contains("?")) {
-                        this.PossibleAmbiguousSolutions.add(this.convert(ThirdOutput));
+                        setOfgetPossibleAmbiguousSolutions.add(Result);
                     }
-                    ThirdOutput[i] = ThirdOutput[i].replace(' ','_');
+                    imput[i] = imput[i].replace(' ','_');
                 }
-                ThirdOutput[i] = Input[i].substring(Digit_Place * 3, (Digit_Place * 3) + 3);
+                imput[i] = tempNumber[i];
             }
         }
+    }
 
-        Set<String> SetOfgetPossibleAmbiguousSolutions = new HashSet<String>(this.PossibleAmbiguousSolutions);
-        this.PossibleAmbiguousSolutions.clear();
-        this.PossibleAmbiguousSolutions.addAll(SetOfgetPossibleAmbiguousSolutions);
+    private void testingStrokesVertical(Set<String> setOfgetPossibleAmbiguousSolutions, String[] imput) {
+        String[] tempNumber = new String[]{imput[0], imput[1], imput[2]};
 
+        char[] temp;
+        String Result;
+
+        for (int i = 1; i < imput.length; i++) {
+            temp = imput[i].toCharArray();
+            for (int j = 0; j < 2; j += 2) {
+                if(temp[j] == ' '){
+                    temp[j] = '|';
+                }
+                imput[i] = String.valueOf(temp);
+                Result = this.convert(imput);
+                if (!Result.contains("?")) {
+                    setOfgetPossibleAmbiguousSolutions.add(Result);
+                }
+                imput[i] = tempNumber[i];
+            }
+        }
+    }
+
+    private void testingStrokesHorisontal(Set<String> setOfgetPossibleAmbiguousSolutions, String[] imput) {
+        String[] temp = new String[]{imput[0], imput[1], imput[2]};
+        String Result;
+        for (int i = 0; i < imput.length; i++) {
+            imput[i] = imput[i].replace(' ','_');
+            Result = this.convert(imput);
+            if (!Result.contains("?")) {
+                setOfgetPossibleAmbiguousSolutions.add(Result);
+            }
+            imput[i] = temp[i];
+        }
     }
 
 }

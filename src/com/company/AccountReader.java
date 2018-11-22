@@ -74,25 +74,19 @@ public class AccountReader {
                     }
                 }
             } else if (!CheckAccountSumControl(transformedAccount)) {
-                //get all for test
-                //FIXME
                 Digit digit =new Digit();
                 for(int i =0; i<9; i++){
-                    int id = i;
-                    digit.solveAmbiguous(account,id);
+                    digit.solveAmbiguous(account,i);
                     for(int p = 0; p < digit.PossibleAmbiguousSolutions.size(); p++){
                         String Replaced = digit.PossibleAmbiguousSolutions.get(p);
                         StringBuilder strBuild = new StringBuilder(transformedAccount);
-                        strBuild.setCharAt(id, Replaced.charAt(0));
+                        strBuild.setCharAt(i, Replaced.charAt(0));
                         transformedAccount = String.valueOf(strBuild);
                         if(this.CheckAccountSumControl(transformedAccount)){
                             result.add(transformedAccount + " AMB");
                         }
                     }
-
                 }
-
-
                 result.add(transformedAccount + " ERR");
             } else {
                 //get ? place no for tests
